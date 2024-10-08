@@ -4,69 +4,237 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive RAG Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent: #764ABC;
+            --accent-hover: #8559d4;
+            --error: #ff6b6b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
         }
+
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
+            padding: 2rem;
         }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            font-size: 2.5rem;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
         input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            margin-right: 10px;
-            font-size: 16px;
+            flex: 1;
+            padding: 1rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
         }
+
+        input[type="text"]:focus {
+            outline: 2px solid var(--accent);
+            box-shadow: 0 0 10px rgba(118, 74, 188, 0.2);
+        }
+
         button {
-            padding: 10px;
-            font-size: 16px;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--accent);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
+
+        button:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
         #result {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            min-height: 100px;
+            transition: all 0.3s ease;
+        }
+
+        .loader {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--bg-secondary);
+            border-top: 5px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            color: var(--error);
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: rgba(255, 107, 107, 0.1);
+        }
+
+        .answer {
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>RAG Application with Llama2</h1>
-        <input type="text" id="user_query" placeholder="Ask something...">
-        <button onclick="sendQuery()">Ask</button>
-
+        <div class="search-container">
+            <input type="text" id="user_query" placeholder="Ask something...">
+            <button onclick="sendQuery()" id="submit-btn">
+                <i class="fas fa-paper-plane"></i>
+                <span>Ask</span>
+            </button>
+        </div>
+        <div class="loader" id="loader">
+            <div class="spinner"></div>
+        </div>
         <div id="result"></div>
     </div>
 
     <script>
         async function sendQuery() {
             const query = document.getElementById("user_query").value;
+            const submitBtn = document.getElementById("submit-btn");
+            const loader = document.getElementById("loader");
+            const resultDiv = document.getElementById("result");
 
             if (!query) {
-                alert("Please enter a query.");
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Please enter a query.
+                    </div>
+                `;
                 return;
             }
 
-            // Send query to FastAPI backend
-            const response = await fetch("/query", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ query })
-            });
+            // Show loading state
+            submitBtn.disabled = true;
+            loader.style.display = "flex";
+            resultDiv.style.display = "none";
 
-            const data = await response.json();
+            try {
+                // Send query to FastAPI backend
+                const response = await fetch("/query", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ query })
+                });
+                
+                const data = await response.json();
+                
+                // Hide loader and show result
+                loader.style.display = "none";
+                resultDiv.style.display = "block";
 
-            // Display the response in the result div
-            const resultDiv = document.getElementById("result");
-            if (data.answer) {
-                resultDiv.innerHTML = `<strong>Answer:</strong> ${data.answer}`;
-            } else if (data.error) {
-                resultDiv.innerHTML = `<strong>Error:</strong> ${data.error}`;
+                // Display the response in the result div
+                if (data.answer) {
+                    resultDiv.innerHTML = `
+                        <div class="answer">
+                            <strong><i class="fas fa-robot"></i> Answer:</strong>
+                            <p>${data.answer}</p>
+                        </div>
+                    `;
+                } else if (data.error) {
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <strong>Error:</strong> ${data.error}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                loader.style.display = "none";
+                resultDiv.style.display = "block";
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <strong>Error:</strong> Failed to connect to the server
+                    </div>
+                `;
+            } finally {
+                submitBtn.disabled = false;
             }
         }
+
+        // Add enter key support
+        document.getElementById("user_query").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                sendQuery();
+            }
+        });
     </script>
 </body>
 </html>
