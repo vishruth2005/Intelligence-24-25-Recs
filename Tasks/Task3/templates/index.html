@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive RAG Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RAG Application with Llama2</h1>
+        <input type="text" id="user_query" placeholder="Ask something...">
+        <button onclick="sendQuery()">Ask</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function sendQuery() {
+            const query = document.getElementById("user_query").value;
+
+            if (!query) {
+                alert("Please enter a query.");
+                return;
+            }
+
+            // Send query to FastAPI backend
+            const response = await fetch("/query", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ query })
+            });
+
+            const data = await response.json();
+
+            // Display the response in the result div
+            const resultDiv = document.getElementById("result");
+            if (data.answer) {
+                resultDiv.innerHTML = `<strong>Answer:</strong> ${data.answer}`;
+            } else if (data.error) {
+                resultDiv.innerHTML = `<strong>Error:</strong> ${data.error}`;
+            }
+        }
+    </script>
+</body>
+</html>
