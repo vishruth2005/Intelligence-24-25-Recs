@@ -14,7 +14,7 @@ This project implements a Retrieval-Augmented Generation (RAG) system that answe
 ## Project Structure
 
 ```
-HogwartsQ&A/
+Task3/
 │
 ├── myenv/
 ├── data/
