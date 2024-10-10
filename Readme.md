@@ -30,7 +30,7 @@ This task involved building computer vision and NLP models on the provided datas
 
 ### Subtask 1.1 - Computer Vision
 
-I developed a CNN model for **DeepFake detection**. Initially, I incorrectly assigned labels to the images, but I corrected this with a simple logic after the model predictions, avoiding the need for retraining. I also focused on using **weight initialization** techniques. Initially, I was only achieving 50% validation accuracy, with no improvement in loss during training. However, after experimenting with weight initialization, the model's accuracy jumped to 80%, confirming the importance of initialization in this project.
+I developed a CNN model for **DeepFake detection**. Initially, I incorrectly assigned labels to the images, but I corrected this with a simple logic after the model predictions, avoiding the need for retraining. I also focused on using **weight initialization** techniques. Initially, I was only achieving 50% validation accuracy, with no improvement in loss during training. However, after experimenting with weight initialization, the model's accuracy jumped to 95%, confirming the importance of initialization in this project.
 
 ### Subtask 1.2 - NLP
 
