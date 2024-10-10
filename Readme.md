@@ -1,8 +1,12 @@
-# Intelligence-24-25-recruitment-submission - Overview
+# Intelligence-24-25 Recruitment Submission
 
-# By Vishruth-V-Srivatsa-231DS034
+### By **Vishruth V Srivatsa** (231DS034)
 
-This repository contains the completed recruitment task, which is divided into three main tasks. Each task is further broken down into subtasks, with detailed instructions and outputs documented in individual README files within the respective task directories.
+---
+
+This repository contains my completed recruitment task, divided into three main sections. Each task has been broken down into subtasks, with detailed instructions and outputs documented in the individual README files within the respective task directories.
+
+---
 
 ## Table of Contents
 
@@ -10,51 +14,62 @@ This repository contains the completed recruitment task, which is divided into t
    - [Subtask 1.1 - Computer Vision](#subtask-11---computer-vision)
    - [Subtask 1.2 - NLP](#subtask-12---nlp)
 2. [Task 2 - Underwater Image Enhancement Project](#task-2---underwater-image-enhancement-project)
-   - [Subtask 2.1 - Variational AutoEncoders](#subtask-21---variational-autoencoders)
+
+   - [Subtask 2.1 - Variational Autoencoders](#subtask-21---variational-autoencoders)
    - [Subtask 2.2 - GAN on MNIST](#subtask-22---gan-on-mnist)
-   - [Subtask 2.3 - GAN on given Dataset](#subtask-23---gan-on-given-datasetn)
+   - [Subtask 2.3 - GAN on Given Dataset](#subtask-23---gan-on-given-dataset)
    - [Subtask 2.4 - Diffusion Model](#subtask-24---diffusion-model)
+
 3. [Task 3 - RAG System](#task-3---rag-system)
+
+---
 
 ## Task 1 - Kaggle Competition
 
-This task focuses on building computer vision and NLP models on given datasets for a Kaggle Competition. Both of them have been completed successfully.
+This task involved building computer vision and NLP models on the provided datasets for a Kaggle competition. Both tasks were completed successfully.
 
 ### Subtask 1.1 - Computer Vision
 
-In this a CNN model has been built for DeepFake detection. One of the things to note in this project is that I assigned the wrong labels in the beginning for the images. Got to know this while submitting so to prevent training the model again I have used a simple logic to correct it after the models predict.
-I have also used he initialisers to build the model seperately. I am specifically noting this because in the beginning i was getting a validation accuracy of only 50%. and the loss wasnt fluctuating during training. But on a random try it fluctuated and cal accuracy went upto 80% so I thought it might be due to weight initialisation so I next time I specifically used weight initaialisation techniques and as expected the accuracy increased,
+I developed a CNN model for **DeepFake detection**. Initially, I incorrectly assigned labels to the images, but I corrected this with a simple logic after the model predictions, avoiding the need for retraining. I also focused on using **weight initialization** techniques. Initially, I was only achieving 50% validation accuracy, with no improvement in loss during training. However, after experimenting with weight initialization, the model's accuracy jumped to 80%, confirming the importance of initialization in this project.
 
 ### Subtask 1.2 - NLP
 
-In this a Classifier model has been built using logistic regression. Things to note in this is that I have used GridsearchCV for hyperparameter tuning.
+For the NLP subtask, I built a classifier model using **Logistic Regression**. I used **GridSearchCV** for hyperparameter tuning, optimizing the model for better performance.
+
+---
 
 ## Task 2 - Underwater Image Enhancement Project
 
-The second task involves building different models for image enhancement and comparing them based on specific evaluation metrics.
+This task involved developing models for image enhancement, with a comparison of different approaches based on evaluation metrics.
 
-### Subtask 2.1 - Variational AutoEncoders
+### Subtask 2.1 - Variational Autoencoders (VAEs)
 
-In this a vaiational autoencoder model has been trained address image enhancement.
+I trained a **Variational Autoencoder** (VAE) model to enhance underwater images, improving their clarity and quality.
 
 ### Subtask 2.2 - GAN on MNIST
 
-In this a GAN model has been implemented on MNIST dataset.
+I implemented a **Generative Adversarial Network (GAN)** model on the MNIST dataset, successfully generating new digit samples as part of this experiment.
 
-### Subtask 2.3 - GAN on given Dataset
+### Subtask 2.3 - GAN on Given Dataset
 
-In this a GAN model has been implemented on given Dataset. Thing to note in this subtask was that the loss function was specified for the task and a pixbypix loss function was used. It was interesting and fun to learn about this.
+For this subtask, I implemented a **GAN model on the provided dataset**. One key aspect of this project was working with a specified **pix2pix loss function**, which was fascinating to learn and apply.
 
 ### Subtask 2.4 - Diffusion Model
 
-In this a diffusion model was implemented for image enhancement. The base code for architecture was already provided.
+I implemented a **Diffusion Model** for image enhancement. The base architecture was provided, and I built on that to enhance underwater images.
+
+---
 
 ## Task 3 - RAG System
 
-In the final task a complete RAG system was implemented. Things to note in this was that it took me some time to learn about RAG. One of the major confusions I suffered was trying to access llama model through API key but it coming as gated repo with no access. Later I figured things out and used Ollama to pull the llama3 model on my local machine and then call it through langchain. This was a great project helped me learn a lot abt RAG, Langchain and AI Agents.
+In this task, I developed a complete **Retrieval-Augmented Generation (RAG) system**. One challenge I faced was accessing the **Llama model** through an API key, which required access to a gated repository. After resolving this issue, I pulled the **Llama3 model** locally using **Ollama** and integrated it with **Langchain**. This task was a deep dive into RAG systems, **Langchain**, and **AI agents**, which significantly enhanced my understanding of these technologies.
 
 ---
 
 ## Conclusion
 
-Overall this was an enjoyable and interesting learning experience which helped dive in to many topics I had not yet explored. It also gave me the oppurtunity to learn a lot of things in just a week which if I had specifically tried to learn seperately might have taken a lot of time. One of the most important things was that it gave me an experience of practical coding and building of a model instead of just learning the theory. Thank you for this oppurtunity.
+This recruitment task provided an incredible learning experience, allowing me to dive into various new topics. I gained practical coding experience and developed real-world models in just a week—an opportunity that would have otherwise taken much longer if I had tackled these topics individually. It also highlighted the importance of applying theoretical knowledge in a hands-on setting.
+
+Thank you for this opportunity!
+
+---
