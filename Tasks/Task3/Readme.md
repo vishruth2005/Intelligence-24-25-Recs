@@ -67,6 +67,7 @@ Task3/
 
    ```
    pip install -r requirements.txt
+   pip install pypdf
    ```
 
 4. Ensure you have the Ollama server running with the llama3 model available.
