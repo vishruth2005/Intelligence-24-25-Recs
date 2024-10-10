@@ -62,7 +62,7 @@ I implemented a **Diffusion Model** for image enhancement. The base architecture
 
 ## Task 3 - RAG System
 
-In this task, I developed a complete **Retrieval-Augmented Generation (RAG) system**. One challenge I faced was accessing the **Llama model** through an API key, which required access to a gated repository. After resolving this issue, I pulled the **Llama3 model** locally using **Ollama** and integrated it with **Langchain**. This task was a deep dive into RAG systems, **Langchain**, and **AI agents**, which significantly enhanced my understanding of these technologies.
+In this task, I developed a complete **Retrieval-Augmented Generation (RAG) system**. One challenge I faced was accessing the **Llama model** through an API key, which required access to a gated repository. After learning this was the wrong approach, I pulled the **Llama3 model** locally using **Ollama** and integrated it with **Langchain**. This task was a deep dive into RAG systems, **Langchain**, and **AI agents**, which significantly enhanced my understanding of these technologies.
 
 ---
 
